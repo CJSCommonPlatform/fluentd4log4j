@@ -1,0 +1,24 @@
+dist: trusty
+sudo: false
+language: java
+jdk:
+- oraclejdk8
+git:
+  depth: 3
+cache:
+  directories:
+  - "$HOME/.m2"
+before_install:
+- git clone https://github.com/CJSCommonPlatform/travis-settings.git target/travis-settings
+- ln -sfT ${PWD}/target/travis-settings/settings.xml ${HOME}/.m2/settings.xml
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: bash ./mvnw -DskipTests=true -Dmaven.javadoc.skip=true -B deploy
+  on:
+   repo: CJSCommonPlatform/fluentd4log4j
+   tags: true
+env:
+  global:
+  - secure: p1iuwbpgZKsAwqeued6Ro4D2fBL7DZKcdq/orCBNnWAPkBcyCkUH2vQpZ1rW/wuWvOMbLgrlWfN7aKSe5cjxhHCqA0zcFJZb9KUOfNbIavhXkdWfNqM8lVY6qNz2RDFVbwEwdNLyNkIjXHOzBjiLpfWUkt/+lbUBfD3qjQ3ykjBhmGyiIgFP2HocVDREiEnap671yvKRi0StGm5olK8XdqPUQ17fSj4+FnWkH+KPdUDyjfDLPWxKSj9rgvYq5/j4G8piYOeIvvlMDdL6XtZ3OVkLnKJrVaIShMJhGRoPOmbrBJdoT5PQWyinE879dOTUeawmkSQpjubXUhw2GzJTRCSaRIj0uHk/Kv/6xIGYNA6AR/4uBAJsT/kBeMWBhRQw7MvpGurDsc4HRoNF8c4Ung+kI2BNd3lkNqROVRc4dzQSBbWxs9eusgrBbczhVVgPm9ouYMfq9cGhDEe5rOR4fluA488MKtWK8Z9G3LwtC0BgqyB82rnIfGXWrznp+SUkUa0m8KV4uACW0e4G7Pa+V5klWj9daplM2VUqrOuEjngnXN10KcJYWPkvOpaW5mkkgNql+b+ZaFix+X5x/AlFLmt4tZbtJUJut2093EdiI4j2yrtmDwPK7cFF+BdT/yKpE2Nx1OAF/IgfVuRqnN52q7lWo29phgenmWtX466cbQw=
+  - secure: WdPMHAlN7vgD/wj9NM9akDD8s6aAVUuuua5Z7Tdin4Os69U6iuGu4SlnwmrKt74DAXfw3nmCOY47o6A0Pm3JiTz2901CeVIaBtkEczvUJJamtVhc87ubiGlrUK1At2zdAJLgMp+LQ/7Y54Vpa3fcuYiHPnhAktF5FI6VVS2jZedAKGOSIfwYM4YjITKOET/G8BdNHt8BkMFTf1KFDd5mVZ/Edi/LGSnTwZc71/YNS75zhXy6qb7VOZwhJMVRjgpjpdLkjo4h8dZC23/qk8NnIMx+xRKOkkx8HBpoYe7eqngcYrmVjr8SzR69HiJmrND8JBboi0B4ltSweoKKwu3VhGIJ6AcQUZqKuKJA6Ksa5UzZA8MiATIapSqidO/7VUocweQr6S8yFwZmXdGaRH5W/SdtLWq39lGdY7geK2Fhqy60ZazvWhtFZhDAPnzIxOPe4QnU7g+X+1OoDXLgwBnDypJedRFZzO1ny88LRipt4k5VNgIhQoXvJKUiPo1X9hUoL3Fn/Da61GwxYJQMu0vzhL2N3sLrMjgdYexFpgfgg7OMFn/RVg7GXQ1FbxsGvzT0BK1acph28vUD1bxLZDitVGgNxx5zzdwEF6FyrvXrKZw9BIEFCEwyChJ1sqKq4c/VTalDauqOfpmoNQvRf5+/evcNLWLiq0iW9kK7DGCl2e4=
